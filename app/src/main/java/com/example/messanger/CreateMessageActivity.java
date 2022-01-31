@@ -21,8 +21,13 @@ public class CreateMessageActivity extends AppCompatActivity {
 
     public void onClickShowMessage(View view) {
         String msg = editText.getText().toString();
-        Intent intent = new Intent(this, ReceivedMessageActivity.class);
-        intent.putExtra("msg", msg);
-        startActivity(intent);
+        //Intent intent = new Intent(this, ReceivedMessageActivity.class); //Explicite intent
+        //intent.putExtra("msg", msg);
+        Intent intent = new Intent(Intent.ACTION_SEND);  //Implicite intent
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_INTENT, msg);
+        Intent choosenIntent = Intent.createChooser(intent, "Как вы хотите отправить сообщение?");
+
+        startActivity(choosenIntent);
     }
 }
